@@ -1,18 +1,19 @@
 <template>
   <div>
+    <HeaderAuth/>
     <div class="card">
       <p>新規登録</p>
       <div class="form">
-        <input placeholder="ユーザーネーム" type="text" v-model="name"/>
+        <input placeholder="ユーザーネーム" type="text" :parentText="name" v-model="name"/>
         <input placeholder="パスワード" type="text" v-model="password"/>
         <input placeholder="メールアドレス" type="email" v-model="email"/>
-        <input placeholder="留学先" type="text" v-model="country">
+        <input placeholder="留学先" type="text" v-model="country"/>
       </div>
       <div class="share">
         <h1>体験談</h1>
-        <textarea placeholder="上限は1000字です"></textarea>
+        <textarea placeholder="上限は1000字です" v-model="comments"></textarea>
         <div>
-          <button>登録</button>
+          <button @click="register">登録</button>
         </div>
       </div>
     </div>
@@ -20,15 +21,20 @@
 </template>
 
 <script>
+import HeaderAuth from "../components/HeaderAuth.vue";
 export default {
   data(){
     return {
       name: "",
       password: "",
       email: "",
-      country: ""
+      country: "",
+      comments: "",
     };
   },
+  components:{
+    HeaderAuth
+  }
 }
 </script>
 
@@ -46,9 +52,6 @@ export default {
   font-size: 20px;
   padding: 5px 0 15px;
 }
-.form{
-  
-}
 input{
   width: 80%;
   margin-bottom: 15px;
@@ -60,7 +63,7 @@ input{
 textarea{
   margin-top: 15px;
   width: 80%;
-  padding: 10px 0 300px;
+  padding: 10px 0 250px;
   color: black;
   border: 1px solid black;
   border-radius: 5px;
