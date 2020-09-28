@@ -13,7 +13,7 @@
         <h1>体験談</h1>
         <textarea placeholder="上限は1000字です" v-model="comments"></textarea>
         <div>
-          <button @click="register">登録</button>
+          <button @click="auth">登録</button>
         </div>
       </div>
     </div>
@@ -22,6 +22,7 @@
 
 <script>
 import HeaderAuth from "../components/HeaderAuth.vue";
+import axios from "axios";
 export default {
   data(){
     return {
@@ -32,10 +33,29 @@ export default {
       comments: "",
     };
   },
+  methods:{
+    auth(){
+      axios
+        .post("https://ancient-reaches-57587.herokuapp.com/api/register",{
+          name: this.name,
+          password: this.password,
+          email:this.email,
+          country:this.country,
+          comments:this.comments,
+        })
+        .then(response=>{
+          console.log(response);
+          this.$router.replace("/");
+        })
+        .catch(error => {
+          alert(error);
+        });
+    }
+  },
   components:{
     HeaderAuth
   }
-}
+}//データベースに投稿(post)
 </script>
 
 <style scoped>
